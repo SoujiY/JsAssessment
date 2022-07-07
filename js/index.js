@@ -103,7 +103,7 @@ submitBtn.addEventListener('click', ()=>{
             score++;
             liElement.style.backgroundColor ="lightgreen";
           } else {
-            liElement.style.backgroundColor ="red";
+            liElement.style.backgroundColor ="crimson";
           }
         
         }
@@ -139,9 +139,10 @@ function countdown(minutes, seconds) {
                 }, 1000);
             }
             else {
-              console.log("times up");
+              //when the times up to display the message,stop timer and display the score
+              //console.log("times up");
               counter.innerHTML="Times Up";
-              counter.style.color="red";
+              counter.style.color="crimson";
               clearInterval(timeoutHandle);
               calculateScore();
             }
@@ -152,10 +153,10 @@ function countdown(minutes, seconds) {
     
   } //timer function
 
-
 //reload the page on the click of reset button
 let resetBtn=document.getElementById('btnReset');
 resetBtn.addEventListener('click', ()=>{
   location.reload();
 });
+
 });//end of window dom event
