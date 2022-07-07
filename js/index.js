@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     </ul>
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
-      countdown(1, 00);
+      countdown(0, 30);
     });
   };
 //console.log(quizArray)
@@ -94,8 +94,7 @@ submitBtn.addEventListener('click', ()=>{
         let r = `radio_${index}_${i}`;
         let liElement = document.getElementById(`${li}`);
         let radioElement = document.getElementById(`${r}`);
-         console.log(radioElement.id);
-                 
+                         
         //checking the correct answers
         if (radioElement.checked) {
          // code for task 1
@@ -138,6 +137,13 @@ function countdown(minutes, seconds) {
                   setTimeout(function () {
                   countdown(minutes - 1, 59);
                 }, 1000);
+            }
+            else {
+              console.log("times up");
+              counter.innerHTML="Times Up";
+              counter.style.color="red";
+              clearInterval(timeoutHandle);
+              calculateScore();
             }
         }
     }
