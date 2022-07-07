@@ -24,7 +24,10 @@ window.addEventListener('DOMContentLoaded', () => {
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
+    // call the displayQuiz function
+    displayQuiz();
   });
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -44,6 +47,16 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'What is the capital of Australia',
+      o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
+      a: 1,
+    },
+    {
+      q: 'What is the capital of Australia',
+      o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
+      a: 1,
+    }
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -60,31 +73,83 @@ window.addEventListener('DOMContentLoaded', () => {
                     </ul>
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
+      countdown(1, 00);
     });
   };
+//console.log(quizArray)
 
+//
+let submitBtn = document.getElementById('btnSubmit');
+submitBtn.addEventListener('click', ()=>{
+  calculateScore();
+});
   // Calculate the score
   const calculateScore = () => {
     let score = 0;
+    let str="";
     quizArray.map((quizItem, index) => {
       for (let i = 0; i < 4; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
-        liElement = document.querySelector('#' + li);
-        radioElement = document.querySelector('#' + r);
-
+        let liElement = document.getElementById(`${li}`);
+        let radioElement = document.getElementById(`${r}`);
+         console.log(radioElement.id);
+                 
+        //checking the correct answers
+        if (radioElement.checked) {
+         // code for task 1
+         if (quizItem.a == i) {
+          //change background color of li element here
+            score++;
+            liElement.style.backgroundColor ="lightgreen";
+          } else {
+            liElement.style.backgroundColor ="red";
+          }
+        
+        }
         if (quizItem.a == i) {
           //change background color of li element here
-        }
+            
+            liElement.style.backgroundColor ="lightgreen";
+          } 
+          let scoreEle = document.getElementById('score');
+          scoreEle.innerHTML = `You have scored ${score} / ${quizArray.length}`;
+      
+    }
+  })//quizArray map end here
 
-        if (radioElement.checked) {
-          // code for task 1 goes here
-        }
-      }
-    });
-  };
+};
+//submit event end
 
-  // call the displayQuiz function
-  displayQuiz();
+//timer function
+let timeoutHandle;
+function countdown(minutes, seconds) {
+    function tick() {
+        let counter = document.getElementById("time");
+        counter.innerHTML =
+            minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+        seconds--;
+        if (seconds >= 0) {
+            timeoutHandle = setTimeout(tick, 1000);
+        } else {
+            if (minutes >= 1) {
+                // countdown(mins-1);   
+                  setTimeout(function () {
+                  countdown(minutes - 1, 59);
+                }, 1000);
+            }
+        }
+    }
+    tick();
+    
+    
+  } //timer function
+
+
+//reload the page on the click of reset button
+let resetBtn=document.getElementById('btnReset');
+resetBtn.addEventListener('click', ()=>{
+  location.reload();
 });
+});//end of window dom event
