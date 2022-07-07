@@ -1,5 +1,5 @@
 # JS Assessment
-
+Tried my best to succesfully achieve the below mentioned tasks for this Assessment. Added the css file for a styling.
 ## Quiz Application
 
 The JavaScript code in index.js is unfinished. You will need to study it to figure out what it does. Then you will need to use the existing code and your own, to finish the app.
